@@ -1,5 +1,7 @@
 <?php
-
+Route::get('/','StaticPagesController@home')->name('home');
+Route::get('/about','StaticPagesController@about')->name('about');
+Route::get('/help','StaticPagesController@help')->name('help');
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,7 +12,3 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
