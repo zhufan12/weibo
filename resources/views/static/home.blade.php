@@ -1,4 +1,4 @@
-@extends('layouts.herder')
+@extends('layouts.defult')
 @section('title','Home')
 @section('content')
 <div class="jumbotron">

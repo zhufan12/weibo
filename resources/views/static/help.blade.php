@@ -1,4 +1,4 @@
-@extends('layouts.herder')
+@extends('layouts.defult')
 @section('title','help')
 @section('content')
     <h1>help</h1>
