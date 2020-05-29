@@ -4,6 +4,11 @@ Route::get('/about','StaticPagesController@about')->name('about');
 Route::get('/help','StaticPagesController@help')->name('help');
 Route::get('/signup','User\UserContorller@create')->name('signup');
 Route::resource('users','User\UserContorller');
+
+#login route
+Route::get('login','SessionController@login')->name('login');
+Route::post('login','SessionController@store')->name('login');
+Route::delete('logout','SessionController@destory')->name('logout');
 /*
 |--------------------------------------------------------------------------
 | Web Routes
