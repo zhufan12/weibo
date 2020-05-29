@@ -9,6 +9,13 @@ use App\Models\User;
 use Auth;
 class UserContorller extends Controller
 {
+     public function __construct(){
+        $this->middleware('auth', [
+            'except' => ['show', 'create', 'store','index']
+        ]);
+
+
+    }
    public function create() {
         return View('users.create');
     }
@@ -34,11 +41,12 @@ class UserContorller extends Controller
     }
 
     public function edit(User $user){
+        $this->authorize('update', $user);
         return View('users.edit',compact('user'));
     }
 
     public function update(Request $request,User $user){
-
+        $this->authorize('update', $user);
         $this->validate($request,[
             'name' => 'required|max:50',
             'password' => 'confirmed'
@@ -53,5 +61,9 @@ class UserContorller extends Controller
         session()->flash('success','edit success');
         return redirect()->route('users.show',$user);
     }
-
+      public function index()
+    {
+        $users = User::paginate(5);
+        return view('users.index', compact('users'));
+    }
 }
