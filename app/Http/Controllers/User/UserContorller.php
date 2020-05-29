@@ -33,4 +33,25 @@ class UserContorller extends Controller
         return redirect()->route('users.show',[$user]);
     }
 
+    public function edit(User $user){
+        return View('users.edit',compact('user'));
+    }
+
+    public function update(Request $request,User $user){
+
+        $this->validate($request,[
+            'name' => 'required|max:50',
+            'password' => 'confirmed'
+        ]);
+        $data = [];
+        $data['name'] = $request->name;
+        if ($request->password) {
+            $data['password'] = bcrypt($request->password);
+        }
+        $user->update($data);
+
+        session()->flash('success','edit success');
+        return redirect()->route('users.show',$user);
+    }
+
 }
