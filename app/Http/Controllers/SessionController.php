@@ -16,7 +16,7 @@ class SessionController extends Controller
             'password' => 'required'
         ]);
 
-       if (Auth::attempt($credentials)) {
+       if (Auth::attempt($credentials,$request->has('remember'))) {
            // 登录成功后的相关操作
         session()->flash('success','welcome');
          return redirect()->route('users.show', [Auth::user()]);
@@ -25,5 +25,11 @@ class SessionController extends Controller
         session()->flash('danger','sorry you are password and email error');
         return redirect()->back()->withInput();
        }
+    }
+
+    public function destory(){
+        Auth::logout();
+        session()->flash('success','logout success');
+        return redirect()->route('login');
     }
 }

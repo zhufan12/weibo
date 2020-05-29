@@ -6,6 +6,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Auth;
 class UserContorller extends Controller
 {
    public function create() {
@@ -27,6 +28,7 @@ class UserContorller extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
+        Auth::login($user);
         session()->flash('success','welcome   '.$user->name);
         return redirect()->route('users.show',[$user]);
     }

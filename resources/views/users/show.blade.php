@@ -1,5 +1,5 @@
 @extends('layouts.defult')
-@section('title', $user)
+@section('title', $user->name)
 
 
 @section('content')
