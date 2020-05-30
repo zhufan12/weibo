@@ -9,6 +9,8 @@ Route::resource('users','User\UserContorller');
 Route::get('login','SessionController@login')->name('login');
 Route::post('login','SessionController@store')->name('login');
 Route::delete('logout','SessionController@destory')->name('logout');
+
+Route::get('signup/confirm/{token}','User\UserContorller@confirmEmail')->name('confirm_email');
 /*
 |--------------------------------------------------------------------------
 | Web Routes

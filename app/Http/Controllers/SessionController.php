@@ -22,10 +22,15 @@ class SessionController extends Controller
         ]);
 
        if (Auth::attempt($credentials,$request->has('remember'))) {
-           // 登录成功后的相关操作
-        session()->flash('success','welcome');
-        $fallback = route('users.show', [Auth::user()]);
-         return redirect()->intended($fallback);
+            if (Auth::user()->acticated) {
+                Session()->falsh('success','welcome back');
+               $fallback = route('users.show', Auth::user());
+               return redirect()->intended($fallback);
+            }else {
+               Auth::logout();
+               session()->flash('warning', 'sorry you are ancient not activated');
+               return redirect('/');
+           }
        } else {
            // 登录失败后的相关操作
         session()->flash('danger','sorry you are password and email error');
