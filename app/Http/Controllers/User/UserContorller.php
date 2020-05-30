@@ -22,7 +22,10 @@ class UserContorller extends Controller
     }
 
     public function show(User $user){
-        return View('users.show', compact('user'));
+       $statuses = $user->statuses()
+                           ->orderBy('created_at', 'desc')
+                           ->paginate(10);
+        return view('users.show', compact('user', 'statuses'));
     }
     public function store(Request $request){
         $this->validate($request,[
@@ -101,4 +104,6 @@ class UserContorller extends Controller
             $message->from($from, $name)->to($to)->subject($subject);
         });
     }
+
+
 }
